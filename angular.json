@@ -18,10 +18,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/kaycloak-tut",
             "index": "src/index.html",
+            "indexTransform": "./index-html-transform.js",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
@@ -66,7 +67,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "kaycloak-tut:build"
           },
@@ -127,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "kaycloak-tut"
+  "defaultProject": "kaycloak-tut",
+  "cli": {
+    "analytics": "5b52380f-ab60-40c5-8add-9286fa9327d4"
+  }
 }
