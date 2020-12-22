@@ -1,5 +1,4 @@
-declare const keycloak: any;
-
+import {KeycloakService} from './utility/keycloak.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,8 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private keycloakService: KeycloakService) {}
 
   logout(): void {
-    keycloak.logout();
+    this.keycloakService.logout();
   }
 }

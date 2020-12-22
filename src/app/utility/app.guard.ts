@@ -6,21 +6,30 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-
-declare const keycloak: any;
+import { KeycloakService } from './keycloak.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  constructor(private keycloakService: KeycloakService) {
+  }
+  isAuthenticated(): boolean {
+    try {
+      this.keycloakService.isTokenExpire();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if(keycloak.authenticated) {
+    if(this.isAuthenticated()) {
       return  true;
     }
 
-    keycloak.login();
+    this.keycloakService.login();
 
     return false;
 
